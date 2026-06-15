@@ -7,6 +7,12 @@ pub const UidRange = @import("UidRange.zig");
 pub const LogFile = @import("LogFile.zig");
 pub const SharedError = @import("SharedError.zig");
 
+// Tests
+const _ = @import("tests/uid_range_test.zig");
+const _interop_tests = @import("tests/interop_test.zig");
+const _session_tests = @import("tests/session_test.zig");
+const _position_tests = @import("tests/position_test.zig");
+
 pub fn IniParser(comptime Struct: type) type {
     return struct {
         const Self = @This();

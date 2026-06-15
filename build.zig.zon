@@ -4,6 +4,9 @@
     .fingerprint = 0xa148ffcc5dc2cb59,
     .minimum_zig_version = "0.16.0",
     .dependencies = .{
+        .ly_core = .{
+            .path = "ly-core",
+        },
         .ly_ui = .{
             .path = "ly-ui",
         },

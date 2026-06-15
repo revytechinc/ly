@@ -99,6 +99,20 @@ pub fn build(b: *std.Build) !void {
     const run_step = b.step("run", "Run the app");
     run_step.dependOn(&run_cmd.step);
 
+    // Add test step that runs ly-core tests
+    const ly_core_dep = b.dependency("ly_core", .{
+        .target = target,
+        .optimize = optimize,
+        .enable_x11_support = enable_x11_support,
+        .fallback_uid_min = fallback_uid_min,
+        .fallback_uid_max = fallback_uid_max,
+    });
+    const ly_core_test_mod = b.addTest(.{
+        .root_module = ly_core_dep.module("ly-core"),
+    });
+    const test_step = b.step("test", "Run unit tests");
+    test_step.dependOn(&b.addRunArtifact(ly_core_test_mod).step);
+
     const installexe_step = b.step("installexe", "Install Ly and the selected init system service");
     installexe_step.makeFn = Installer(true).make;
     installexe_step.dependOn(b.getInstallStep());
